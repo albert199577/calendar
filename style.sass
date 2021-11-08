@@ -1,0 +1,57 @@
+*
+    // border: 1px solid #000
+    box-sizing: border-box
+    text-align: center
+
+html,body
+    padding: 0
+    margin: 0
+    display: flex
+    flex-flow: column
+    align-items: center
+
+main
+    display: grid
+    grid-template-rows: 25vh 60vh
+    grid-template-columns: 20vw 50vw
+    grid-template-areas: "header header" "left contain"
+
+header
+    grid-area: header
+    section
+        display: flex
+        justify-content: space-around
+        align-items: center
+        i
+            font-size: 1.5rem
+            color: #918686
+.contain
+    display: grid
+    grid-template-columns: repeat(7, 1fr)
+    justify-content: space-evenly
+    grid-area: contain
+
+.left
+    grid-area: left
+
+div
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 7px
+
+.days 
+    width: 2rem
+    height: 2rem
+    border-radius: 50%
+    color: #43494466
+
+.days:hover 
+    background-color: #8de6c8
+
+.weekend
+    color: #e69d80
+p
+    background-color: #f5afaf
+    height: 20%
+    width: 100%
