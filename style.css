@@ -22,10 +22,10 @@ html, body {
 main {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 25vh 60vh;
-      grid-template-rows: 25vh 60vh;
-  -ms-grid-columns: 20vw 50vw;
-      grid-template-columns: 20vw 50vw;
+  -ms-grid-rows: 15vw 38vw;
+      grid-template-rows: 15vw 38vw;
+  -ms-grid-columns: 15vw 50vw;
+      grid-template-columns: 15vw 50vw;
       grid-template-areas: "header header" "left contain";
 }
 
@@ -34,9 +34,35 @@ header {
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: header;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #eed1d1;
+  color: white;
+}
+
+header h1 {
+  display: inline-block;
+  right: 2.5rem;
+  position: absolute;
+  font-size: 4rem;
+  margin: 1rem auto;
+  top: 0;
+  font-family: 'Dancing Script', cursive;
+  font-family: 'Orbitron', sans-serif;
+  font-family: 'Recursive', sans-serif;
 }
 
 header section {
+  margin-top: 5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,6 +71,12 @@ header section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+header section h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 5rem;
+  display: inline-block;
 }
 
 header section i {
@@ -57,18 +89,29 @@ header section i {
   display: grid;
   -ms-grid-columns: (1fr)[7];
       grid-template-columns: repeat(7, 1fr);
+  -ms-grid-rows: (1fr)[7];
+      grid-template-rows: repeat(7, 1fr);
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: contain;
+  border: 1px solid #ada5a5;
+  border-top: none;
+}
+
+.contain .out {
+  border: .5px solid #615d5d;
+  border-collapse: collapse;
 }
 
 .left {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: left;
+  border: 1px solid #ada5a5;
+  border-top: none;
 }
 
 div {
@@ -81,7 +124,7 @@ div {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 7px;
+  position: relative;
 }
 
 .days {
@@ -100,8 +143,12 @@ div {
 }
 
 p {
-  background-color: #f5afaf;
-  height: 20%;
-  width: 100%;
+  background-color: #e7c1c1;
+  position: absolute;
+  bottom: 0;
+  margin: 0 auto;
+  width: 85%;
+  border: none;
+  font-size: 1rem;
 }
 /*# sourceMappingURL=style.css.map */

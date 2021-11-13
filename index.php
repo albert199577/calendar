@@ -23,6 +23,12 @@
   <title>Calender</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Orbitron:wght@600&family=Recursive:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -64,7 +70,8 @@
   $monthDay = date("t", strtotime($firstDay));
   // $lmDay = date("t", strtotime($lmDay));
   // echo $lmDay;
-  
+  //取出當月月份 January 到 December
+  $monthD = date("F", strtotime($firstDay));
   // 取出一個月有幾個禮拜
   $week = ceil(($whiteDay + $monthDay) / 7);
   // 計算出總月份共需要幾格
@@ -115,7 +122,7 @@
       <a href="index.php?year=<?=$ly?>&month=<?=$lm?>">
         <i class="fas fa-chevron-left"></i>
       </a>
-      <h2><?=$month?></h2>
+      <h2><?=$monthD?></h2>
       <a href="index.php?year=<?=$ny?>&month=<?=$nm?>">
         <i class="fas fa-chevron-right"></i>
       </a>
@@ -139,18 +146,18 @@
     $date = date("$month - ") . $day_arr[$i];
     if ($weekend == 0 || $weekend == 6) {
       echo "<div class='out'><div class='days weekend'>";
-    } else if ($i < $whiteDay || $i > count($day_arr) - 1) {
-      echo "<div class='out'>";
     } else {
       echo "<div class='out'><div class='days'>";
     }
     echo $day_arr[$i];
+    
+    echo "</div>";
     //加入特別日
-    // if(array_key_exists($date,$sD)){
-    //   echo  "<p>" . $sD[$date] . "</p>";
+    if(array_key_exists($date,$sD)){
+      echo  "<p>" . $sD[$date] . "</p>";
 
-    // }
-    echo "</div></div>";
+    }
+    echo "</div>";
 
 
   } 
