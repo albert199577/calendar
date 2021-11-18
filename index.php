@@ -21,7 +21,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calender</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="short icon" href="calendar.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Orbitron:wght@600&family=Recursive:wght@600&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -50,22 +52,28 @@
 
   if ($month == 1) {
     $lm = 12;
-    $y = $year - 1;
+    $ly = $year - 1;
   } else if ($month == 12) {
     $nm = 1;
     $ny = $year + 1;
   }
 
+  if ($year == 0 && $month == 1) {
+    $lm = $month;
+    $ly = $year;
+  }
   ?>
 
 
 <?php
+  date_default_timezone_set("Asia/Taipei");
+  // 取出當日日期
+  $today = date("Y-m-d");
   // 取出當前月份的第一天
   $firstDay = date("$year-$month-01");
   
   // 取出當前月份第一天是星期幾 (0 - 6) 代表Sunday - Saturday
   $whiteDay = date("w", strtotime($firstDay));
-  
   // 取出當月份有幾天 28days - 31days
   $monthDay = date("t", strtotime($firstDay));
   // $lmDay = date("t", strtotime($lmDay));
@@ -105,9 +113,9 @@
   for ($i = 0; $i < $whiteDay; $i++) {
     array_unshift($day_arr, "");
   }
-  // for ($i = 1; $i <= $all_lattice - $monthDay; $i++) {
-  //   array_push($day_arr, "");
-  // }
+  for ($i = 1; $i <= $all_lattice - $monthDay; $i++) {
+    array_push($day_arr, "");
+  }
   // print_r($day_arr);
   
 ?>
@@ -130,45 +138,76 @@
 
   </header>
   <section class="left">
-    
+    <p>備忘錄</p>
+    <form>
+      <input name="start" type="number" min="1" max="12" placeholder="M" required>
+      <input id="end" name="end" type="number" min="1" max="31" placeholder="D" required>
+      <input type="text">
+      <button type="submit">加入</button>
+    </form>
   </section>
   <section class="contain">
 
-<?php
-  //Calendar top
-  for ($i = 0; $i < count($weekDay); $i++) {
-    echo "<div>" . $weekDay[$i] . "</div>";
-  }
-  //Calendar content
-  for ($i = 0; $i < $all_lattice; $i++) {
-    $weekend = $i % 7;
-    
-    $date = date("$month - ") . $day_arr[$i];
-    if ($weekend == 0 || $weekend == 6) {
-      echo "<div class='out'><div class='days weekend'>";
-    } else {
-      echo "<div class='out'><div class='days'>";
+  <?php
+    //Calendar top
+    for ($i = 0; $i < count($weekDay); $i++) {
+      echo "<div class='dayy'>" . $weekDay[$i] . "</div>";
     }
-    echo $day_arr[$i];
-    
-    echo "</div>";
-    //加入特別日
-    if(array_key_exists($date,$sD)){
-      echo  "<p>" . $sD[$date] . "</p>";
+    //Calendar content
+    for ($i = 0; $i < $all_lattice; $i++) {
+      $weekend = $i % 7;
+      $today = date("d");
+      $date = date("$month - ") . $day_arr[$i];
+      if ($month == date("m") && $year == date("Y") && $i == date("d") && ($weekend == 0 || $weekend == 6)) {
+        echo "<div class='out today weekend'>";
+      } else if ($month == date("m") && $year == date("Y") && $i == date("d")){
+        echo "<div class='out today'>";
+      } else if ($weekend == 0 || $weekend == 6){
+        echo "<div class='out weekend'>";
+      } else {
+        echo "<div class='out'>";
+      }
+      echo $day_arr[$i];
+      
 
-    }
-    echo "</div>";
+      //加入特別日
+      if(array_key_exists($date,$sD)){
+        echo  "<p class='sd'>" . $sD[$date] . "</p>";
+
+      }
+      echo "</div>";
 
 
-  } 
+    } 
 
-?>
+  ?>
   </section>
-
+  <footer class="footer">
+    <form action="" method="get">
+      <p>
+        <input name="year" type="number" min="1"  placeholder="選擇年份" required>
+      </p>
+      <p>
+        <select name="month" id="select_month" required>
+          <option value="">選擇月份</option>
+          <?php
+            for($i = 1; $i <= 12; $i++) {
+              echo "<option value='$i'>" . $i . "</option>";
+            }
+          ?>
+        </select>
+        <!-- <input name="month" type="number" min="1" max="12" placeholder="選擇月份" required> -->
+      </p>
+      <!-- <input type="month" name="year-month" id=""> -->
+      <p>
+        <input class="submit" type="submit" value="查詢">
+      </p>
+    </form>
+  </footer>
 </main>
 
 
 
 </body>
-<script scr="/app.js"></script>
+<script src="app.js"></script>
 </html>
